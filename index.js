@@ -22,7 +22,7 @@ balance.innerHTML = `<p class="p-balance">Expenses</p><p class="p-number">${expe
 //adding expense
 bt1.addEventListener("click",() =>{
     const val = parseInt(input.value,10);
-    if(isNaN(document.querySelector(".inp").valueAsNumber)==true){
+    if(isNaN(val)==true){
         UIkit.notification({message: 'enter correct expense value!'})
     }
     else{
