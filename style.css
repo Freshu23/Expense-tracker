@@ -6,10 +6,11 @@ body{
 .charts{
     display: flex;
     flex-direction: row;
+   
 }
 .canvas-container{
     margin-top: 10vh;
-    width: 500px;
+    width: 500PX;
     height:300px;
 }
 /*sidebar*/
@@ -273,7 +274,7 @@ H1{
         width: 90vw;
     }
     .inp{
-        width: 8vw;
+        width: 12vw;
         height: 5vh;
     }
     .arrow-down{
@@ -286,24 +287,29 @@ H1{
         font-size:3.8vw;
     }
     #bt1{
-        width:15vw;
-        height: 5.4vh;
+        width:18vw;
+        height: 6vh;
+    }
+    .yellow{
+        background-color: #feb236;
     }
     .category{
-        width: 29vw;
+        display: none;
     }
     .form-wrapper{
         width: 90vw;
     }
     #login-btn{
-        width: 18vw;
+        width: 25vw;
     }
     #register-btn{
-        width:24vw;
+        width:30vw;
     }
     h1{
-        font-size: 4vw;
+        font-size: 4.2vw;
         color: lightgrey;
+        font-family: 'Lexend Zetta', sans-serif;
+
     }
     .x{
         font-size: 6vw;
@@ -313,5 +319,14 @@ H1{
         font-size: 6vw;
         margin-left: 70vw;
     }
-    
+    .nav-links{
+        margin-left:30vw;
+    }
+    .CHARTS{
+        width: 100vw;
+    }
+    .canvas-container{
+        width: 100vw;
+    }
+   
 }
