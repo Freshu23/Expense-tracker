@@ -1,4 +1,4 @@
-
+ UIkit.notification({message: 'logged out succesfully
 
 const input = document.querySelector("#value");
 const bt1 = document.querySelector("#bt1");
@@ -22,8 +22,8 @@ balance.innerHTML = `<p class="p-balance">Expenses</p><p class="p-number">${expe
 //adding expense
 bt1.addEventListener("click",() =>{
     const val = parseInt(input.value,10);
-    if(val==NaN){
-        console.log("elo")
+    if(isNaN(document.querySelector(".inp").valueAsNumber)==true){
+        UIkit.notification({message: 'enter correct expense value!'})
     }
     else{
         
@@ -49,53 +49,56 @@ function create(inputval){
     const party = document.querySelector("#party")
     const clothes = document.querySelector("#clothes")
     let cat = 0;
-    if(food.checked == true){
-        cat = "food"
-        expenses.food = expenses.food +inputval;
-       function updateFood(){
-        myChart.data.datasets[0].data[0] = expenses.food;
-        myChart.update();
-       }
-       updateFood();
-
-    } else if (party.checked==true){
-        cat="party"
-        expenses.party = expenses.party +inputval;
-        myChart.data.datasets[0].data[2] = expenses.party;
-        function updateParty(){
+    
+        if(food.checked == true){
+            cat = "food"
+            expenses.food = expenses.food +inputval;
+           function updateFood(){
+            myChart.data.datasets[0].data[0] = expenses.food;
+            myChart.update();
+           }
+           updateFood();
+    
+        } else if (party.checked==true){
+            cat="party"
+            expenses.party = expenses.party +inputval;
             myChart.data.datasets[0].data[2] = expenses.party;
-            myChart.update();
-           }
-           updateParty();
-    }else if(clothes.checked==true){
-        cat="clothes"
-        expenses.clothes = expenses.clothes +inputval;
-        myChart.data.datasets[0].data[1] = expenses.clothes;
-        function updateClothes(){
+            function updateParty(){
+                myChart.data.datasets[0].data[2] = expenses.party;
+                myChart.update();
+               }
+               updateParty();
+        }else if(clothes.checked==true){
+            cat="clothes"
+            expenses.clothes = expenses.clothes +inputval;
             myChart.data.datasets[0].data[1] = expenses.clothes;
-            myChart.update();
-           }
-           updateClothes();
-    }else{
-        cat="unknown"
-    }
-    const x = document.createElement("li");
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-    today = mm + '/' + dd + '/' + yyyy;
-    x.innerHTML= `transaction value = ${inputval}<br> date: ${today}<br> category: ${cat}  `;
-    x.classList.add("transaction");
-    document.querySelector(".transactions").appendChild(x);
-    db.collection("users").doc(`${document.querySelector(".user-nav").textContent}`).set(expenses).then(()=>{
-        console.log("update dziala")
-    })
-    db.collection("users").doc(`${document.querySelector(".user-nav").textContent}`).collection("transactions").add({
-        value:inputval,
-        category:cat,
-        date:today
-    })
+            function updateClothes(){
+                myChart.data.datasets[0].data[1] = expenses.clothes;
+                myChart.update();
+               }
+               updateClothes();
+        }else{
+            cat="unknown"
+        }
+        const x = document.createElement("li");
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+        x.innerHTML= `transaction value = ${inputval}<br> date: ${today}<br> category: ${cat}  `;
+        x.classList.add("transaction");
+        document.querySelector(".transactions").appendChild(x);
+        db.collection("users").doc(`${document.querySelector(".user-nav").textContent}`).set(expenses).then(()=>{
+            console.log("update dziala")
+        })
+        db.collection("users").doc(`${document.querySelector(".user-nav").textContent}`).collection("transactions").add({
+            value:inputval,
+            category:cat,
+            date:today
+        })
+    
+   
     
 }
 /*chart*/
