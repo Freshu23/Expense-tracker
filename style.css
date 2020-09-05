@@ -1,4 +1,124 @@
-body{
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense tracerk app</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.5/dist/js/uikit-icons.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    
+</head>
+<body>
+    <nav class="sidebar">
+        <img class="piggybank" src="icons/money (1).png">
+        <p class="logo">EXPENSE TRACKER</p>
+        <p class="user-nav"></p>
+        <p class="logout logoutHidden">LOGOUT</p>
+        <ul class="nav-links">
+            <li class="login">LOGIN</li>
+            <li class="register">REGISTER</lic>
+        </ul>
+            
+        
+        
+    </nav>
+    <div class="wrapper">
+        <div class="form-wrapper hidden login-wrapper">
+                <p class="x">X</p>
+                <h1> ACCOUNT LOGIN</h1>
+            
+            <form>
+
+                <div class="uk-margin">
+                    <div class="uk-inline">
+                        <span class="uk-form-icon" uk-icon="icon: user"></span>
+                        <input class="uk-input" placeholder="email" id="account" type="text">
+                    </div>
+                </div>
+            
+                <div class="uk-margin">
+                    <div class="uk-inline">
+                        <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                        <input class="uk-input" placeholder="password" id="password" type="password">
+                    </div>
+                </div>
+            
+            </form>
+            <p class="error"></p>
+            <button id="login-btn" onclick="logInUser()">LOGIN</button>
+        </div>
+        <div class="form-wrapper hidden register-wrapper">
+            <p class="x2">X</p>
+            <h1>CREATE NEW ACCOUNT</h1>
+        
+        <form>
+
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: user"></span>
+                    <input class="uk-input" placeholder="email" id="account-register" type="text">
+                </div>
+            </div>
+        
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+                    <input class="uk-input" placeholder="password" id="password-register" type="password">
+                </div>
+            </div>
+        
+        </form>
+        <p class="error"></p>
+        <button id="register-btn" onclick="addUser()">REGISTER</button>
+    </div>
+        <div class="content">
+           
+            <div class="charts">
+                <div class="canvas-container">
+                    <canvas id="myChart"></canvas>
+                </div>
+                
+                <div class="current-balance"></div>
+            </div>
+           <p>Add new expense</p>
+            <div class="add-block">
+                <div class="uk-button-group">
+                    <button class="uk-button uk-button-secondary category" >Category</button>
+                    <div class="uk-inline">
+                        <button class="uk-button uk-button-secondary yellow"  type="button"><span class="ui-arrow" uk-icon="icon:chevron-down; ratio: 1.5" ></span></button>
+                        <div uk-dropdown="mode: click; boundary: ! .uk-button-group; boundary-align: true;">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                
+                                <li>
+                                    <image src="icons/fork.png"></image>
+                                    <label for="food">Food</label>
+                                    <input type="radio" id="food" name="radio">
+                               
+                               
+                                <li class="uk-nav-divider"></li>
+                                
+                                    <image src="icons/drink.png"></image>
+                                    <label for="party">Party</label>
+                                    <input type="radio" id="party" name="radio">
+                               
+                                <li class="uk-nav-divider"></li>
+                                <li>
+                                    <image src="icons/shirt.png"></image>
+                                    <label for="clothes">Clothes</label>
+                                    <input type="radio" id="clothes" name="radio">
+                                </li>
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>body{
     margin:0;
     font-family: 'Montserrat', sans-serif;
 
@@ -287,8 +407,8 @@ H1{
         font-size:3.8vw;
     }
     #bt1{
-        width:20vw;
-        height: 6.3vh;
+        width:18vw;
+        height: 6vh;
     }
     .yellow{
         background-color: #feb236;
@@ -320,13 +440,61 @@ H1{
         margin-left: 70vw;
     }
     .nav-links{
-        margin-left:30vw;
+        display: none;
     }
     .CHARTS{
         width: 100vw;
     }
     .canvas-container{
         width: 100vw;
+        height: 170px;
+    }
+    .current-balance{
+        width: 180px;
+        height: 180px;
     }
    
 }
+                </div>
+                <button id="bt1">ADD</button>
+                <input class="inp" type="text" id="value" name="amount">
+                
+            </div>
+            <p>TRANSACTION LIST <img class="arrow-down" src="icons/down-arrow.png"></p>
+            <ul class="transactions hidden"></ul>
+         
+        </div>
+    </div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-functions.js"></script>
+
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDpSvAAFey1u29dOK_X2uOrIW_ja9tsTK4",
+    authDomain: "expense-tracker-bf6fd.firebaseapp.com",
+    databaseURL: "https://expense-tracker-bf6fd.firebaseio.com",
+    projectId: "expense-tracker-bf6fd",
+    storageBucket: "expense-tracker-bf6fd.appspot.com",
+    messagingSenderId: "1050371064936",
+    appId: "1:1050371064936:web:aeba0520bb26839fbb27dd",
+    measurementId: "G-EC9XRTW5PX"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+ 
+</script>
+<script src="index.js"></script>
+</body>
+</html>
