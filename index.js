@@ -176,6 +176,7 @@ function logInUser(){
            
             
                 balance.innerHTML = `<p class="p-balance">Expenses</p><p class="p-number">${doc.data().balance}$<p/>`;
+                document.querySelector(".nav-links").classList.add("hidden")
             }
         })
         db.collection("users").doc(`${document.querySelector(".user-nav").textContent}`).collection("transactions").get().then(function(querySnapshot) {
@@ -224,6 +225,7 @@ function resetData(){
 const logoutBtn = document.querySelector(".logout")
 logoutBtn.addEventListener("click",()=>{
     firebase.auth().signOut().then(function() {
+        document.querySelector(".nav-links").classList.remove("hidden")
         UIkit.notification({message: 'logged out succesfully'})
         document.querySelector(".user-nav").textContent = "";
         logoutBtn.classList.add("logoutHidden")
