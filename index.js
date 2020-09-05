@@ -1,4 +1,4 @@
- UIkit.notification({message: 'logged out succesfully
+
 
 const input = document.querySelector("#value");
 const bt1 = document.querySelector("#bt1");
